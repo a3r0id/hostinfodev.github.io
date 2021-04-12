@@ -1,20 +1,4 @@
-// THIS IS A WORK IN PROGRESS, 
-var state = {
-    tic: 0,
-    speed: {x: 0, y: 0, z: 0},
-    gravity: 0.05,
-    notableBound: 10,
-    mouse: {
-        x: 0,
-        y: 0
-    },
-    pos: {
-        x: 0,
-        y: 0 
-    },
-    mouseHistory: [],
-    lastMouseEvent: undefined
-};
+
 
 $('body').on('mousemove', function(e){
     state.mouse.x = e.pageX;
@@ -33,6 +17,8 @@ var mainLoop = setInterval(()=> {
         y: screen.height / 2
     };
 
+    let differential = {x: 0, y: 0};
+
     // Check if first mouse event
     if (state.lastMouseEvent == undefined){
         const time = new Date();
@@ -45,17 +31,19 @@ var mainLoop = setInterval(()=> {
 
             const mouseEvent = state.mouseHistory.pop(0);
             const procTime = new Date();
-    
-            // ACCELERATION VECTORS
-            //state.speed.x += Math.trunc(xIncrement);
-            //state.speed.y += Math.trunc(yIncrement);
+
+            if (mouseEvent != undefined){
+                state.dom.mouseEventDrops++;
+                differential.x += mouseEvent.x;
+                differential.y += mouseEvent.y;
+            }
 
         } while (state.mouseHistory.length)
     }
 
-    //Gravity: Subtraction of altitude
     state.pos.x = state.mouse.x;
-    state.pos.y = centerPoint.y - centerPoint.y / 2;//state.pos.y + 1;
+    state.pos.y = centerPoint.y - centerPoint.y / 2;
+
 
 
     // MOVE THE SPRITE
@@ -75,7 +63,23 @@ var mainLoop = setInterval(()=> {
         `);
     // END DEBUG
 
+    // GLOBAL DOM TIC INCREMENT
+    state.dom.tic++
+
+    $('#dom-tic-count').text(state.dom.tic);
+    $('#webgl-tic-count').text(state.webgl.tic);
+    if (state.webgl.tic > state.dom.tic){
+        $('#tic-count-dif').text(state.webgl.tic - state.dom.tic);
+    }else{
+        $('#tic-count-dif').html(`&nbsp;&nbsp;~${state.dom.tic - state.webgl.tic}`);
+    }
+    $('#dom-mouse-event-drops').text(state.dom.mouseEventDrops);
+    let time = new Date();
+    $('#debug-date').html(`${time.getMonth() + 1}-${time.getDate()}-${time.getFullYear()}`);
+    $('#debug-time').html(`${time.getHours()}-${time.getMinutes()}-${time.getSeconds()}-${time.getMilliseconds()}`);
+    
 }, 10);
 
 // INITIALIZE MAIN LOOP
 mainLoop;
+

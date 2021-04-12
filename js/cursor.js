@@ -15,210 +15,229 @@
 */
 
 
+const trailing = () => {
 
-(function(){
 
 
 
+   var msg = "\"People think that computer science is the art of geniuses but the actual reality is the opposite, just many people doing things that build on each other, like a wall of mini stones.\" -Donald Knuth";
 
-var msg = "\"People think that computer science is the art of geniuses but the actual reality is the opposite, just many people doing things that build on each other, like a wall of mini stones.\" -Donald Knuth";
 
+   // Set font's style size for calculating dimensions
 
-// Set font's style size for calculating dimensions
+   // Set to number of desired pixels font size (decimal and negative numbers not allowed)
 
-// Set to number of desired pixels font size (decimal and negative numbers not allowed)
+   var size = 36;
 
-var size = 36;
 
 
+   // Set both to 1 for plain circle, set one of them to 2 for oval
 
-// Set both to 1 for plain circle, set one of them to 2 for oval
+   // Other numbers & decimals can have interesting effects, keep these low (0 to 3)
 
-// Other numbers & decimals can have interesting effects, keep these low (0 to 3)
+   var circleY = 0.75; var circleX = 2;
 
-var circleY = 0.75; var circleX = 2;
 
 
+   // The larger this divisor, the smaller the spaces between letters
 
-// The larger this divisor, the smaller the spaces between letters
+   // (decimals allowed, not negative numbers)
 
-// (decimals allowed, not negative numbers)
+   var letter_spacing = 5;
 
-var letter_spacing = 5;
 
 
+   // The larger this multiplier, the bigger the circle/oval
 
-// The larger this multiplier, the bigger the circle/oval
+   // (decimals allowed, not negative numbers, some rounding is applied)
 
-// (decimals allowed, not negative numbers, some rounding is applied)
+   var diameter = 10;
 
-var diameter = 10;
 
 
+   // Rotation speed, set it negative if you want it to spin clockwise (decimals allowed)
 
-// Rotation speed, set it negative if you want it to spin clockwise (decimals allowed)
+   var rotation = 0.4;
 
-var rotation = 0.4;
 
 
+   // This is not the rotation speed, its the reaction speed, keep low!
 
-// This is not the rotation speed, its the reaction speed, keep low!
+   // Set this to 1 or a decimal less than one (decimals allowed, not negative numbers)
 
-// Set this to 1 or a decimal less than one (decimals allowed, not negative numbers)
+   var speed = 0.3;
 
-var speed = 0.3;
 
 
+   ////////////////////// Stop Editing //////////////////////
 
-////////////////////// Stop Editing //////////////////////
 
 
+   if (!window.addEventListener && !window.attachEvent || !document.createElement) return;
 
-if (!window.addEventListener && !window.attachEvent || !document.createElement) return;
 
 
+   msg = msg.split('');
 
-msg = msg.split('');
+   var n = msg.length - 1, a = Math.round(size * diameter * 0.208333), currStep = 20,
 
-var n = msg.length - 1, a = Math.round(size * diameter * 0.208333), currStep = 20,
+   ymouse = a * circleY + 20, xmouse = a * circleX + 20, y = [], x = [], Y = [], X = [],
 
-ymouse = a * circleY + 20, xmouse = a * circleX + 20, y = [], x = [], Y = [], X = [],
+   o = document.createElement('div'), oi = document.createElement('div'),
 
-o = document.createElement('div'), oi = document.createElement('div'),
+   b = document.compatMode && document.compatMode != "BackCompat"? document.documentElement : document.body,
 
-b = document.compatMode && document.compatMode != "BackCompat"? document.documentElement : document.body,
 
 
+   mouse = function(e){
 
-mouse = function(e){
+   e = e || window.event;
 
- e = e || window.event;
+   ymouse = !isNaN(e.pageY)? e.pageY : e.clientY; // y-position
 
- ymouse = !isNaN(e.pageY)? e.pageY : e.clientY; // y-position
+   xmouse = !isNaN(e.pageX)? e.pageX : e.clientX; // x-position
 
- xmouse = !isNaN(e.pageX)? e.pageX : e.clientX; // x-position
+   },
 
-},
 
 
+   makecircle = function(){ // rotation/positioning
 
-makecircle = function(){ // rotation/positioning
+   if(init.nopy){
 
- if(init.nopy){
+   o.style.top = (b || document.body).scrollTop + 'px';
 
-  o.style.top = (b || document.body).scrollTop + 'px';
+   o.style.left = (b || document.body).scrollLeft + 'px';
 
-  o.style.left = (b || document.body).scrollLeft + 'px';
+   };
 
- };
+   currStep -= rotation;
 
- currStep -= rotation;
+   for (var d, i = n; i > -1; --i){ // makes the circle
 
- for (var d, i = n; i > -1; --i){ // makes the circle
+   d = document.getElementById('iemsg' + i).style;
 
-  d = document.getElementById('iemsg' + i).style;
+   d.top = Math.round(y[i] + a * Math.sin((currStep + i) / letter_spacing) * circleY - 15) + 'px';
 
-  d.top = Math.round(y[i] + a * Math.sin((currStep + i) / letter_spacing) * circleY - 15) + 'px';
+   d.left = Math.round(x[i] + a * Math.cos((currStep + i) / letter_spacing) * circleX) + 'px';
 
-  d.left = Math.round(x[i] + a * Math.cos((currStep + i) / letter_spacing) * circleX) + 'px';
+   };
 
- };
+   },
 
-},
 
 
+   drag = function(){ // makes the resistance
 
-drag = function(){ // makes the resistance
+   y[0] = Y[0] += (ymouse - Y[0]) * speed;
 
- y[0] = Y[0] += (ymouse - Y[0]) * speed;
+   x[0] = X[0] += (xmouse - 20 - X[0]) * speed;
 
- x[0] = X[0] += (xmouse - 20 - X[0]) * speed;
+   for (var i = n; i > 0; --i){
 
- for (var i = n; i > 0; --i){
+   y[i] = Y[i] += (y[i-1] - Y[i]) * speed;
 
-  y[i] = Y[i] += (y[i-1] - Y[i]) * speed;
+   x[i] = X[i] += (x[i-1] - X[i]) * speed;
 
-  x[i] = X[i] += (x[i-1] - X[i]) * speed;
+   };
 
- };
+   makecircle();
 
- makecircle();
+   },
 
-},
 
 
+   init = function(){ // appends message divs, & sets initial values for positioning arrays
 
-init = function(){ // appends message divs, & sets initial values for positioning arrays
+   if(!isNaN(window.pageYOffset)){
 
- if(!isNaN(window.pageYOffset)){
+   ymouse += window.pageYOffset;
 
-  ymouse += window.pageYOffset;
+   xmouse += window.pageXOffset;
 
-  xmouse += window.pageXOffset;
+   } else init.nopy = true;
 
- } else init.nopy = true;
+   for (var d, i = n; i > -1; --i){
 
- for (var d, i = n; i > -1; --i){
+   d = document.createElement('div');
+   d.id = 'iemsg' + i;
 
-  d = document.createElement('div');
-  d.id = 'iemsg' + i;
+   d.style.height = d.style.width = a + 'px';
 
-  d.style.height = d.style.width = a + 'px';
+   d.appendChild(document.createTextNode(msg[i]));
 
-  d.appendChild(document.createTextNode(msg[i]));
+   oi.appendChild(d); y[i] = x[i] = Y[i] = X[i] = 0;
 
-  oi.appendChild(d); y[i] = x[i] = Y[i] = X[i] = 0;
+   };
 
- };
+   o.appendChild(oi);
+   document.body.appendChild(o);
 
- o.appendChild(oi);
- document.body.appendChild(o);
+   setInterval(drag, 25);
 
- setInterval(drag, 25);
+   },
 
-},
 
 
+   ascroll = function(){
 
-ascroll = function(){
+   ymouse += window.pageYOffset;
 
- ymouse += window.pageYOffset;
+   xmouse += window.pageXOffset;
 
- xmouse += window.pageXOffset;
+   window.removeEventListener('scroll', ascroll, false);
 
- window.removeEventListener('scroll', ascroll, false);
+   };
 
+
+
+   o.id = 'outerCircleText';
+   o.style.fontSize = size + 'px';
+
+
+
+   if (window.addEventListener){
+
+   window.addEventListener('load', init, false);
+
+   document.addEventListener('mouseover', mouse, false);
+
+   document.addEventListener('mousemove', mouse, false);
+
+   if (/Apple/.test(navigator.vendor))
+
+      window.addEventListener('scroll', ascroll, false);
+
+   }
+
+   else if (window.attachEvent){
+
+   window.attachEvent('onload', init);
+
+   document.attachEvent('onmousemove', mouse);
+
+   }; 
+   
 };
 
+trailing();
+/*
+$('#tgl-quote').on('click', () => {
+   alert(1);
+   trailing();
 
+   if (state.dom.isTrailing){
+       state.dom.isTrailing = false;
+       $('#outerCircleText').hide();
+       $('div[id^="iemsg"]').hide();
+   } else {
+       state.dom.isTrailing = true;
+       $('#outerCircleText').show();
+       $('div[id^="iemsg"]').show();
+   }
 
-o.id = 'outerCircleText';
-o.style.fontSize = size + 'px';
+});
+*/
+//$('#outerCircleText').hide();
+//$('div[id^="iemsg"]').hide();
 
-
-
-if (window.addEventListener){
-
- window.addEventListener('load', init, false);
-
- document.addEventListener('mouseover', mouse, false);
-
- document.addEventListener('mousemove', mouse, false);
-
-  if (/Apple/.test(navigator.vendor))
-
-   window.addEventListener('scroll', ascroll, false);
-
-}
-
-else if (window.attachEvent){
-
- window.attachEvent('onload', init);
-
- document.attachEvent('onmousemove', mouse);
-
-};
-
-
-
-})();

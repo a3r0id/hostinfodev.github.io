@@ -1,8 +1,9 @@
+var boolMusicPlaying = false;
+
 
 const music = new Audio('/assets/music.mp3');
 music.load();
 
-var boolMusicPlaying = false;
 
 $("#canvas").focus();
 $("#canvas").click();
@@ -10,30 +11,23 @@ $("#canvas").click();
 
 const tryPlay = setInterval(()=>{
     if (state.mouse.x != 0 && state.mouse.y != 0){
-        try{
-            music.play();
-            clearInterval(tryPlay);
-            boolMusicPlaying = true;
-        } catch(e) {
-            if (prompt("This page contains music, would you like to enjoy the complete experience?")){
-                music.play();
-            }
-        }
+
+        var promise = music.play();
+
+        if (promise !== undefined) {
+            promise.then(_ => {
+                clearInterval(tryPlay);
+                boolMusicPlaying = true;
+            }).catch(error => {
+                // NOTHING
+            });
+        }    
     }
-}, 10);
+}, 100);
 
-alert("Headphones On!");
-tryPlay;
+alert("Headphones On! Click to begin!");
+if (!confirm("[SEIZURE WARNING] Elements existing in this webpage emit flashing light and rapidly changing colors. Would you still like to procceed?")){
+    location.href = "https://twitter.com/hostinfodev";
+}
 
-music.play();
-
-$('#music').on('click', () => {
-    if (boolMusicPlaying) {
-        music.pause();
-        boolMusicPlaying = false;
-    } else {
-        music.play();
-        boolMusicPlaying = true;
-    }
-});
 

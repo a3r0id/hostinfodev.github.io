@@ -2,18 +2,77 @@
 <html>
   <head>
 
-    <script src="js/cursor.js"></script>
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/5.1.3/pixi.min.js"></script>-->
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/circling.css">
-  </head>
+<script>
+// THIS IS A WORK IN PROGRESS, 
+var state = {
+  dom: {
+    tic: 0,
+    isTrailing: false,
+    mouseEventDrops: 0
+  },
+  webgl: {
+    tic: 0,
+    fractals: {
+      mat: undefined
+    }
+  },
+  speed: {x: 0, y: 0, z: 0},
+  gravity: 0.05,
+  notableBound: 10,
+  mouse: {
+      x: 0,
+      y: 0
+  },
+  pos: {
+      x: 0,
+      y: 0 
+  },
+  mouseHistory: [],
+  lastMouseEvent: undefined,
+  doRender: true,
+  flushedAfterDoRender: false,
+  fractalColor: 0xffff00
+};
+var globals = {
+  colors: [
+    0xffff00,
+    0x00FF00,
+    0xff0000,
+    0x0000ff
+  ]
+};
+  </script>
 
+    <!--Preload Scripts-->
+    
+    
+    <!--STYLE-->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!--
+      <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    -->
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    
+  </head>
+  
+  <!--CANVAS-->
   <div id="canvas">
+    
+    <!--MAIN SPRITE-->
     <img id="test1" style="width: 80px;position: absolute;z-index: 112;" src="assets/rocket.png">
+
+    <!--DEBUG INFO-->
     <div style="z-index: 111;position: absolute;">
       <br><br><br><br>
+<!--    <button id="tgl-quote" class="spcxFont tglBtn">Read A Quote</button>
+        <br><br>
+-->
+      <button id="tgl-music"class="spcxFont tglBtn">Toggle Music</button>
+      <br><br>
+      <button id="tgl-indicator" class="spcxFont tglBtn">Toggle Reality</button>
+      <br><br>
       <span style="color: whitesmoke;font-size: x-large;">Window</span>
       <br>
       <span style="color: whitesmoke;">Window:</span>
@@ -28,13 +87,43 @@
       <span style="color: whitesmoke;font-size: x-large;">Memory</span>
       <br>
       <span style="color: whitesmoke;" id="heap-alloc"></span>
+      <br><br>
+      <span style="color: whitesmoke;font-size: x-large;">Application</span>
+      <br>
+      <span style="color: whitesmoke;">DOM Tic:</span>
+      <span style="color: whitesmoke;" id="dom-tic-count"></span>
+      <br>
+      <span style="color: whitesmoke;">WebGL Tic:</span>
+      <span style="color: whitesmoke;" id="webgl-tic-count"></span>
+      <br>
+      <span style="color: whitesmoke;">Tic Diff:</span>
+      <span style="color: whitesmoke;" id="tic-count-dif"></span>
+      <br>
+      <span style="color: whitesmoke;">Mouse Events:</span>
+      <span style="color: whitesmoke;" id="dom-mouse-event-drops"></span>
+      <br><br>
+      <span style="color: whitesmoke;font-size: x-large;">General</span>
+      <br>
+      <span style="color: whitesmoke;">Date:</span>
+      <span style="color: whitesmoke;" id="debug-date"></span>
+      <br>
+      <span style="color: whitesmoke;">Time:</span>
+      <span style="color: whitesmoke;" id="debug-time"></span>
     </div>
   </div> 
-  <script type="module" src="js/camera.mjs"></script>
-<body>
+  
+  <!--END DEBUG INFO-->
 
-</body>
-<script src="js/audio.js"></script>
+  <!--THREE.JS-->
+  <script type="module" src="/js/camera1.mjs"></script>
+
+  <!--SKIP BODY TAG-->
+  <body></body>
+
+<!--SCRIPTS-->
 <script src="js/web.js"></script>
 <script src="js/gameLoop.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/cursor.js"></script>
+<script src="js/events.js"></script>
 </html>
