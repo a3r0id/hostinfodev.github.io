@@ -1,0 +1,14 @@
+html,
+body {
+  background-image: url("/assets/background.jpg");
+  background-position: 0vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  font-family: 'BankGothic', sans-serif;
+}
