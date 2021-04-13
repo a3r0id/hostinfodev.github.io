@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="cursor">
   <head>
 
 <script>
@@ -8,7 +8,16 @@ var state = {
   dom: {
     tic: 0,
     isTrailing: false,
-    mouseEventDrops: 0
+    mouseEventDrops: 0,
+    objects: {
+      rocket: {
+        rotation: 0
+      },
+      trailingLetters: {
+        rotationSpeed: 0.4,
+        reactionSpeed: 0.3
+      }
+    }
   },
   webgl: {
     tic: 0,
@@ -58,7 +67,7 @@ var globals = {
   </head>
   
   <!--CANVAS-->
-  <div id="canvas">
+  <div id="canvas" class="cursor">
     
     <!--MAIN SPRITE-->
     <img id="test1" style="width: 80px;position: absolute;z-index: 112;" src="assets/rocket.png">
@@ -69,9 +78,9 @@ var globals = {
 <!--    <button id="tgl-quote" class="spcxFont tglBtn">Read A Quote</button>
         <br><br>
 -->
-      <button id="tgl-music"class="spcxFont tglBtn">Toggle Music</button>
+      <button id="tgl-music"class="spcxFont tglBtn" hidden>Toggle Music</button>
       <br><br>
-      <button id="tgl-indicator" class="spcxFont tglBtn">Toggle Reality</button>
+      <button id="tgl-indicator" class="spcxFont tglBtn" hidden>Toggle Reality</button>
       <br><br>
       <span style="color: whitesmoke;font-size: x-large;">Window</span>
       <br>
@@ -121,9 +130,9 @@ var globals = {
   <body></body>
 
 <!--SCRIPTS-->
+<script src="js/audio.js"></script>
 <script src="js/web.js"></script>
 <script src="js/gameLoop.js"></script>
-<script src="js/audio.js"></script>
 <script src="js/cursor.js"></script>
 <script src="js/events.js"></script>
 </html>

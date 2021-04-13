@@ -21,3 +21,11 @@ $('#music').on('click', () => {
         boolMusicPlaying = true;
     }
 });
+
+
+$( document ).ready(
+    () => {
+        $('#tgl-indicator').show();
+        $('#tgl-music').show();
+    }
+);

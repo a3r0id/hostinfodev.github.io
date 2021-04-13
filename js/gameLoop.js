@@ -18,6 +18,7 @@ var mainLoop = setInterval(()=> {
     };
 
     let differential = {x: 0, y: 0};
+    
 
     // Check if first mouse event
     if (state.lastMouseEvent == undefined){
@@ -28,7 +29,6 @@ var mainLoop = setInterval(()=> {
     else{
         // This gives us the ability to roll mouse event proccessing into a qeue instead of dropping/skipping mouseEvents
         do{
-
             const mouseEvent = state.mouseHistory.pop(0);
             const procTime = new Date();
 
@@ -36,6 +36,13 @@ var mainLoop = setInterval(()=> {
                 state.dom.mouseEventDrops++;
                 differential.x += mouseEvent.x;
                 differential.y += mouseEvent.y;
+
+                if (state.pos.x > mouseEvent.x){
+                    state.dom.objects.rocket.rotation += (state.pos.x - mouseEvent.x) / 30;
+                }
+                else if (state.pos.x < mouseEvent.x){
+                    state.dom.objects.rocket.rotation -= (mouseEvent.x - state.pos.x) / 30;
+                }
             }
 
         } while (state.mouseHistory.length)
@@ -43,6 +50,10 @@ var mainLoop = setInterval(()=> {
 
     state.pos.x = state.mouse.x;
     state.pos.y = centerPoint.y - centerPoint.y / 2;
+
+    
+
+    $('#test1').css("transform", `rotate(${state.dom.objects.rocket.rotation}deg)`)
 
 
 

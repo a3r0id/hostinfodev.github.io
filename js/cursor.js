@@ -57,7 +57,7 @@ const trailing = () => {
 
    // Rotation speed, set it negative if you want it to spin clockwise (decimals allowed)
 
-   var rotation = 0.4;
+   //var rotation = 0.04;
 
 
 
@@ -65,7 +65,7 @@ const trailing = () => {
 
    // Set this to 1 or a decimal less than one (decimals allowed, not negative numbers)
 
-   var speed = 0.3;
+   //var speed = 0.3;
 
 
 
@@ -111,7 +111,7 @@ const trailing = () => {
 
    };
 
-   currStep -= rotation;
+   currStep -= state.dom.objects.trailingLetters.rotationSpeed;
 
    for (var d, i = n; i > -1; --i){ // makes the circle
 
@@ -129,15 +129,15 @@ const trailing = () => {
 
    drag = function(){ // makes the resistance
 
-   y[0] = Y[0] += (ymouse - Y[0]) * speed;
+   y[0] = Y[0] += (ymouse - Y[0]) * state.dom.objects.trailingLetters.reactionSpeed;
 
-   x[0] = X[0] += (xmouse - 20 - X[0]) * speed;
+   x[0] = X[0] += (xmouse - 20 - X[0]) * state.dom.objects.trailingLetters.reactionSpeed;
 
    for (var i = n; i > 0; --i){
 
-   y[i] = Y[i] += (y[i-1] - Y[i]) * speed;
+   y[i] = Y[i] += (y[i-1] - Y[i]) * state.dom.objects.trailingLetters.reactionSpeed;
 
-   x[i] = X[i] += (x[i-1] - X[i]) * speed;
+   x[i] = X[i] += (x[i-1] - X[i]) * state.dom.objects.trailingLetters.reactionSpeed;
 
    };
 
@@ -161,6 +161,7 @@ const trailing = () => {
 
    d = document.createElement('div');
    d.id = 'iemsg' + i;
+   d.classList.add('cursor');
 
    d.style.height = d.style.width = a + 'px';
 
@@ -193,6 +194,7 @@ const trailing = () => {
 
    o.id = 'outerCircleText';
    o.style.fontSize = size + 'px';
+   o.classList.add('cursor');
 
 
 

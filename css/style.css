@@ -5,7 +5,6 @@
 
 html,
 body {
-  cursor: url(assets/astro_doge.png),auto;
   background-image: url("/assets/background.jpg");
   background-position: 0vh;
   background-size: cover;
@@ -17,6 +16,11 @@ body {
   overflow-x: hidden;
   overflow-y: hidden;
   font-family: 'BankGothic', sans-serif;
+  cursor: url(/assets/astro_doge.cur), url(/assets/astro_doge.png), pointer;
+}
+
+.cursor{
+  cursor: url(/assets/astro_doge.cur), url(/assets/astro_doge.png), pointer;
 }
 
 .spcxFont{
