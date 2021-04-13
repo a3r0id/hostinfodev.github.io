@@ -161,7 +161,8 @@ const trailing = () => {
 
    d = document.createElement('div');
    d.id = 'iemsg' + i;
-   d.classList.add('cursor');
+
+   d.classList.add("cursor");
 
    d.style.height = d.style.width = a + 'px';
 

@@ -17,8 +17,6 @@ document.addEventListener( 'mousemove', onDocumentMouseMove );
 init();
 animate();
 
-
-
 function init() {
 
     container = document.createElement( 'div' );
