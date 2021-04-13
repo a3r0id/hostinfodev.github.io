@@ -25,7 +25,7 @@ const tryPlay = setInterval(()=>{
     }
 }, 100);
 
-alert("[*i*] Headphones On! [*i*] Click the page once inside to start music!");
+alert("[*i*] Headphones On! [*i*] Click the page once inside to start music! [*i*] Experience is better on desktop!");
 if (!confirm("[SEIZURE WARNING] Elements existing in this webpage emit flashing light and rapidly changing colors. Would you still like to procceed?")){
     location.href = "https://twitter.com/hostinfodev";
 }
