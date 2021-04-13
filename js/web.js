@@ -3,4 +3,4 @@
     setTimeout(function () {
         titleScroller(text.substr(1) + text.substr(0, 1));
     }, 500);
-}("|  \"Just spin around...\" | Web Art By @hostinfodev | Music: Perfect in a Way (Kaktus Einarsson Rework) by Booka Shade"));
+}("|  \"Spin around...\" | Web Art By @hostinfodev | Music: Perfect in a Way (Kaktus Einarsson Rework) by Booka Shade"));
