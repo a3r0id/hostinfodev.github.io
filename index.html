@@ -25,6 +25,10 @@ var state = {
       mat: undefined
     }
   },
+  centerPoint: {
+    x: 0,
+    y: 0
+  },
   speed: {x: 0, y: 0, z: 0},
   gravity: 0.05,
   notableBound: 10,
@@ -129,7 +133,7 @@ var globals = {
     <img id="test1" style="width: 80px;position: absolute;z-index: 112;" src="assets/rocket.png">
 
     <!--DEBUG INFO-->
-    <div style="z-index: 111;position: absolute;">
+    <div style="z-index: 3001;position: absolute;">
       <br><br><br><br>
 <!--    <button id="tgl-quote" class="spcxFont tglBtn">Read A Quote</button>
         <br><br>
@@ -190,5 +194,6 @@ var globals = {
 <script src="js/web.js"></script>
 <script src="js/gameLoop.js"></script>
 <script src="js/cursor.js"></script>
+<script src="js/input.js"></script>
 <script src="js/events.js"></script>
 </html>

@@ -12,7 +12,7 @@ $('body').on('mousemove', function(e){
 var mainLoop = setInterval(()=> {
 
     // Determine center point
-    const centerPoint = {
+    state.centerPoint = {
         x: screen.width / 2,
         y: screen.height / 2
     };
@@ -49,13 +49,9 @@ var mainLoop = setInterval(()=> {
     }
 
     state.pos.x = state.mouse.x;
-    state.pos.y = centerPoint.y - centerPoint.y / 2;
+    state.pos.y = state.centerPoint.y - state.centerPoint.y / 2;
 
-    
-
-    $('#test1').css("transform", `rotate(${state.dom.objects.rocket.rotation}deg)`)
-
-
+    $('#test1').css("transform", `rotate(${state.dom.objects.rocket.rotation}deg)`);
 
     // MOVE THE SPRITE
     $("#test1").css("left", `${state.pos.x}px`);
@@ -64,7 +60,7 @@ var mainLoop = setInterval(()=> {
     // DEBUG
     $("#window-size").text(`X: ${screen.width} / Y: ${screen.height}`);
     $("#mouse-position").html(`&nbsp;&nbsp;X: ${state.mouse.x} / Y: ${state.mouse.y}`);
-    $("#mouse-position2").html(`&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;X: ${centerPoint.x} / Y: ${centerPoint.y}`);
+    $("#mouse-position2").html(`&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;X: ${state.centerPoint.x} / Y: ${state.centerPoint.y}`);
 
     $("#heap-alloc").html(`Used: ${JSON.stringify(performance.memory.usedJSHeapSize)}
         <br>
